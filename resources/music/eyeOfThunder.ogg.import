@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/eyeOfThunder.ogg-a37e1d360ccc181cfff940966a3e5dce.oggstr"
+
+[deps]
+
+source_file="res://resources/music/eyeOfThunder.ogg"
+dest_files=[ "res://.import/eyeOfThunder.ogg-a37e1d360ccc181cfff940966a3e5dce.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

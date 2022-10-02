@@ -1,0 +1,162 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://resources/fnt3.tres" type="DynamicFont" id=1]
+[ext_resource path="res://resources/fnt1.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scenes/strFinalScore.gd" type="Script" id=3]
+[ext_resource path="res://scenes/btnRestart.gd" type="Script" id=4]
+[ext_resource path="res://resources/fonts/zxOrigins/PC/Journey.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 0.2, 0.235294, 0.341176, 1 )
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 64
+corner_radius_bottom_left = 64
+corner_detail = 1
+
+[sub_resource type="StyleBoxLine" id=18]
+color = Color( 0.101961, 0.109804, 0.172549, 1 )
+grow_begin = 157.0
+grow_end = 158.0
+thickness = 4
+
+[sub_resource type="DynamicFont" id=19]
+outline_size = 2
+outline_color = Color( 0.45098, 0.937255, 0.968627, 1 )
+extra_spacing_char = -2
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxLine" id=20]
+color = Color( 0.45098, 0.937255, 0.968627, 1 )
+grow_begin = -32.0
+grow_end = -32.0
+
+[sub_resource type="StyleBoxFlat" id=21]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0.101961, 0.109804, 0.172549, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.45098, 0.937255, 0.968627, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 1
+
+[node name="layerEndGame" type="CanvasLayer"]
+pause_mode = 2
+visible = false
+
+[node name="colorRect" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0.33 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="marginContainer" type="MarginContainer" parent="control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 64
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 64
+
+[node name="panelContainer" type="PanelContainer" parent="control/marginContainer"]
+margin_left = 32.0
+margin_top = 64.0
+margin_right = 352.0
+margin_bottom = 320.0
+custom_styles/panel = SubResource( 17 )
+
+[node name="marginContainer" type="MarginContainer" parent="control/marginContainer/panelContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 312.0
+margin_bottom = 248.0
+custom_constants/margin_right = 8
+custom_constants/margin_top = 16
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 16
+
+[node name="vBoxContainer" type="VBoxContainer" parent="control/marginContainer/panelContainer/marginContainer"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 296.0
+margin_bottom = 224.0
+
+[node name="panel" type="CenterContainer" parent="control/marginContainer/panelContainer/marginContainer/vBoxContainer"]
+margin_right = 288.0
+margin_bottom = 14.0
+
+[node name="hSeparator" type="HSeparator" parent="control/marginContainer/panelContainer/marginContainer/vBoxContainer/panel"]
+margin_left = 142.0
+margin_top = 5.0
+margin_right = 145.0
+margin_bottom = 9.0
+custom_styles/separator = SubResource( 18 )
+
+[node name="label" type="Label" parent="control/marginContainer/panelContainer/marginContainer/vBoxContainer/panel"]
+margin_left = 80.0
+margin_right = 208.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 19 )
+text = "GAME OVER"
+align = 1
+
+[node name="hSeparator" type="HSeparator" parent="control/marginContainer/panelContainer/marginContainer/vBoxContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 18.0
+margin_right = 288.0
+margin_bottom = 65.0
+size_flags_vertical = 3
+custom_styles/separator = SubResource( 20 )
+
+[node name="strFinalScore" type="Label" parent="control/marginContainer/panelContainer/marginContainer/vBoxContainer"]
+margin_top = 69.0
+margin_right = 288.0
+margin_bottom = 124.0
+custom_fonts/font = ExtResource( 2 )
+text = "FINAL SCORE:
+0000"
+align = 1
+script = ExtResource( 3 )
+
+[node name="hSeparator3" type="HSeparator" parent="control/marginContainer/panelContainer/marginContainer/vBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 128.0
+margin_right = 288.0
+margin_bottom = 175.0
+size_flags_vertical = 3
+
+[node name="btnRestart" type="Button" parent="control/marginContainer/panelContainer/marginContainer/vBoxContainer"]
+margin_left = 112.0
+margin_top = 179.0
+margin_right = 176.0
+margin_bottom = 208.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 1 )
+custom_styles/hover = SubResource( 21 )
+custom_styles/pressed = SubResource( 21 )
+custom_styles/focus = SubResource( 21 )
+custom_styles/disabled = SubResource( 21 )
+custom_styles/normal = SubResource( 21 )
+text = "RESTART"
+script = ExtResource( 4 )
+
+[connection signal="pressed" from="control/marginContainer/panelContainer/marginContainer/vBoxContainer/btnRestart" to="control/marginContainer/panelContainer/marginContainer/vBoxContainer/btnRestart" method="_on_btnRestart_pressed"]

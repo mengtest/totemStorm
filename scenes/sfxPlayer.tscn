@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/sfx.gd" type="Script" id=1]
+
+[node name="sfx" type="AudioStreamPlayer"]
+autoplay = true
+bus = "sfx"
+script = ExtResource( 1 )
+
+[connection signal="finished" from="." to="." method="_on_sfx_finished"]

@@ -1,0 +1,203 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://resources/sprites/vignette.png" type="Texture" id=1]
+[ext_resource path="res://scenes/player.gd" type="Script" id=2]
+[ext_resource path="res://resources/sprites/spritesheetShaded.png" type="Texture" id=3]
+[ext_resource path="res://resources/placeholderMinimalTextures/light.png" type="Texture" id=4]
+[ext_resource path="res://resources/sprites/smallCircle.png" type="Texture" id=5]
+[ext_resource path="res://scenes/playerCamera.gd" type="Script" id=6]
+[ext_resource path="res://scenes/runParticlesGray.tscn" type="PackedScene" id=7]
+
+[sub_resource type="Curve" id=4]
+min_value = 0.01
+max_value = 0.1
+_data = [ Vector2( 0, 0.1 ), 0.0, 0.0149455, 0, 0, Vector2( 0.244526, 0.0705455 ), 0.0, -0.0801423, 0, 1, Vector2( 1, 0.01 ), 0.00700568, 0.0, 0, 0 ]
+
+[sub_resource type="GDScript" id=17]
+script/source = "extends Sprite
+
+func _ready() -> void:
+	set_process(true)
+func _process(_delta: float) -> void:
+	visible = (get_parent().get_parent().fShield <= 0.0)
+"
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "idle"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "run"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 4, 5 ]
+}
+
+[sub_resource type="Curve" id=11]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 1.4, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=12]
+curve = SubResource( 11 )
+
+[sub_resource type="ParticlesMaterial" id=14]
+lifetime_randomness = 1.0
+trail_divisor = 2
+emission_shape = 2
+emission_box_extents = Vector3( 4, 2, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+gravity = Vector3( 0, -16, 0 )
+initial_velocity = 4.0
+initial_velocity_random = 1.0
+angular_velocity = 8.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_random = 0.2
+scale_curve = SubResource( 12 )
+
+[sub_resource type="Curve" id=18]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 1.4, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=19]
+curve = SubResource( 18 )
+
+[sub_resource type="ParticlesMaterial" id=13]
+lifetime_randomness = 1.0
+trail_divisor = 2
+emission_shape = 2
+emission_box_extents = Vector3( 4, 2, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+gravity = Vector3( 0, -16, 0 )
+initial_velocity = 4.0
+initial_velocity_random = 1.0
+angular_velocity = 8.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_random = 0.2
+scale_curve = SubResource( 19 )
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 12.0416
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 203.096
+
+[node name="player" type="KinematicBody2D" groups=["Player"]]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 2 )
+lerpCurve2d = SubResource( 4 )
+
+[node name="layerVignette" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="sprVignette" type="Sprite" parent="layerVignette"]
+pause_mode = 2
+modulate = Color( 1, 1, 1, 0.5 )
+position = Vector2( 400, 11 )
+texture = ExtResource( 1 )
+centered = false
+script = SubResource( 17 )
+
+[node name="animationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/RESET = SubResource( 7 )
+anims/idle = SubResource( 8 )
+anims/run = SubResource( 9 )
+
+[node name="playerCamera" type="Camera2D" parent="."]
+position = Vector2( -212, -203 )
+anchor_mode = 0
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 768
+limit_bottom = 768
+limit_smoothed = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource( 6 )
+
+[node name="runParticles" parent="." instance=ExtResource( 7 )]
+process_material = SubResource( 14 )
+
+[node name="runParticles2" type="Particles2D" parent="."]
+position = Vector2( 0, 6 )
+scale = Vector2( 0.5, 0.5 )
+emitting = false
+amount = 32
+lifetime = 0.66
+speed_scale = 0.5
+randomness = 0.66
+local_coords = false
+draw_order = 1
+process_material = SubResource( 13 )
+texture = ExtResource( 5 )
+
+[node name="shadow" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 0.66 )
+position = Vector2( -0.5, 11 )
+scale = Vector2( 0.21, 0.07 )
+texture = ExtResource( 4 )
+
+[node name="sprite" type="Sprite" parent="."]
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 3 )
+hframes = 6
+vframes = 2
+
+[node name="collisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="area2D" type="Area2D" parent="."]
+
+[node name="collisionShape2D" type="CollisionShape2D" parent="area2D"]
+shape = SubResource( 6 )
